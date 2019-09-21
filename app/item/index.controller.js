@@ -21,11 +21,26 @@
             //    vm.user = user;
             //});
         }
+     
 
         function saveItem() {
-            ItemService.Update(vm.item)
+            let item = {
+                cod_item: vm.item.cod_item,
+                data:vm.item.data,
+                tipo:vm.item.tipo,
+                marca: vm.item.marca, 
+                caracteristicas: vm.item.caracteristicas,
+                tamanho: vm.item.tamanho, 
+                cor: vm.item.cor, 
+                valor_etiqueta: vm.item.valor_etiqueta,
+                valor_compra: vm.item.valor_compra , 
+                valor_margem: vm.item.valor_compra, 
+                valor_sugerido: vm.item.valor_sugerido
+            };
+
+            ItemService.Create(item)
                 .then(function () {
-                    FlashService.Success('Item updated');
+                    FlashService.Success('Item Inserido');
                 })
                 .catch(function (error) {
                     FlashService.Error(error);
