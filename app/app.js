@@ -32,6 +32,13 @@
                 controllerAs: 'vm',
                 data: { activeTab: 'question' }
             })
+            .state('item', {
+                url: '/item',
+                templateUrl: 'item/index.html',
+                controller: 'item.IndexController',
+                controllerAs: 'vm',
+                data: { activeTab: 'item' }
+            })
     }
 
     function run($http, $rootScope, $window) {
