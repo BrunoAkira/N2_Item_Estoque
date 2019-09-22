@@ -25,13 +25,6 @@
                 controllerAs: 'vm',
                 data: { activeTab: 'account' }
             })
-            .state('questions', {
-                url: '/questions',
-                templateUrl: 'questions/index.html',
-                controller: 'questions.IndexController',
-                controllerAs: 'vm',
-                data: { activeTab: 'question' }
-            })
             .state('item', {
                 url: '/item',
                 templateUrl: 'item/index.html',
