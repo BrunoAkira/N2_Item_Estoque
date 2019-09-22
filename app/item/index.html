@@ -52,13 +52,31 @@
 
     <table ng-if="!vm.atualizando">         
         <tr>
-            <th>cod_item</th>
-            <th>data</th>
+            <th>código item</th>
+            <th>data de entrada</th>
+            <th>Tipo</th>
+            <th>Marca</th>
+            <th>Características</th>
+            <th>Tamanho</th>
+            <th>Cor</th>
+            <th>Valor etiqueta</th>    
+            <th>Valor pago</th>
+            <th>Valor margem</th>
+            <th>Preço sugerido</th>    
             <th>action</th>
         </tr>
         <tr ng-repeat ="Item in vm.listItem" > 
             <td>{{Item.cod_item}}</td>
             <td>{{Item.data}}</td>
+            <td>{{Item.tipo}}</td>
+            <td>{{Item.marca}}</td>
+            <td>{{Item.caracteristicas}}</td>
+            <td>{{Item.tamanho}}</td>
+            <td>{{Item.cor}}</td>
+            <td>{{Item.valor_etiqueta}}</td>
+            <td>{{Item.valor_compra}}</td>
+            <td>{{Item.valor_margem}}</td>
+            <td>{{Item.valor_sugerido}}</td>
             <td>
                 <button class="btn btn-primary" ng-click="vm.deleteItem(Item)">Delete</button>
                 <button class="btn btn-primary" ng-click="vm.UpdateItem(Item)">Update</button>        
