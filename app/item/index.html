@@ -1,50 +1,68 @@
 <h1>Estoque</h1>
 <div class="form-container">
-    <form method="post">
-        <div class="form-group">
-            <label >Código do item</label>
-            <input type="text" id="cod_item" class="form-control" ng-model="vm.item.cod_item" required />
-        </div>
-        <div class="form-group">
-            <label >Data de entrada</label>
-            <input type="text" id="data" class="form-control" ng-model="vm.item.data" required />
-        </div>
-        <div class="form-group">
-            <label >Tipo</label>
-            <input type="text" id="tipo" class="form-control" ng-model="vm.item.tipo" required />
-        </div>
-        <div class="form-group">
-            <label >Marca</label>
-            <input type="text" id="marca" class="form-control" ng-model="vm.item.marca" />
-        </div>
-        <div class="form-group">
-            <label >Características</label>
-            <input type="text" id="caracteristicas" class="form-control" ng-model="vm.item.caracteristicas" required />
-        </div>
-        <div class="form-group">
-            <label >Tamanho</label>
-            <input type="text" id="tamanho" class="form-control" ng-model="vm.item.tamanho" required />
-        </div>
-        <div class="form-group">
-            <label >Cor</label>
-            <input type="text" id="cor" class="form-control" ng-model="vm.item.cor" required />
-        </div>
-        <div class="form-group">
-            <label >Valor de etiqueta na compra</label>
-            <input type="text" id="valor_etiqueta" class="form-control" ng-model="vm.item.valor_etiqueta" />
-        </div>
-        <div class="form-group">
-            <label >Valor pago na compra</label>
-            <input type="text" id="valor_compra" class="form-control" ng-model="vm.item.valor_compra" required />
-        </div>
-        <div class="form-group">
-            <label >Preço sugerido</label>
-            <input type="text" id="Preco_sugerido" class="form-control" ng-model="vm.item.Preco_sugerido" />
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary" ng-click="vm.saveItem()">Save</button>
-            <button class="btn btn-danger" ng-click="vm.deleteItem()">Delete</button>
-        </div>
-        
-    </form>
+    <div class="form-group">
+        <label >Código do item</label>
+        <input type="text" 
+            id="cod_item" 
+            class="form-control" 
+            ng-model="vm.item.cod_item" 
+            ng-disabled="vm.atualizando"
+            required />
+    </div>
+    <div class="form-group">
+        <label >Data de entrada</label>
+        <input type="text" id="data" class="form-control" ng-model="vm.item.data" required />
+    </div>
+    <div class="form-group">
+        <label >Tipo</label>
+        <input type="text" id="tipo" class="form-control" ng-model="vm.item.tipo" required />
+    </div>
+    <div class="form-group">
+        <label >Marca</label>
+        <input type="text" id="marca" class="form-control" ng-model="vm.item.marca" />
+    </div>
+    <div class="form-group">
+        <label >Características</label>
+        <input type="text" id="caracteristicas" class="form-control" ng-model="vm.item.caracteristicas" required />
+    </div>
+    <div class="form-group">
+        <label >Tamanho</label>
+        <input type="text" id="tamanho" class="form-control" ng-model="vm.item.tamanho" required />
+    </div>
+    <div class="form-group">
+        <label >Cor</label>
+        <input type="text" id="cor" class="form-control" ng-model="vm.item.cor" required />
+    </div>
+    <div class="form-group">
+        <label >Valor de etiqueta na compra</label>
+        <input type="text" id="valor_etiqueta" class="form-control" ng-model="vm.item.valor_etiqueta" />
+    </div>
+    <div class="form-group">
+        <label >Valor pago na compra</label>
+        <input type="text" id="valor_compra" class="form-control" ng-model="vm.item.valor_compra" required />
+    </div>
+    <div class="form-group">
+        <label >Preço sugerido</label>
+        <input type="text" id="valor_sugerido" class="form-control" ng-model="vm.item.valor_sugerido" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" ng-click="vm.saveItem()">Save</button>
+        <button class="btn btn-primary" ng-click="vm.Cancel()">Cancel</button>
+    </div>
+
+    <table ng-if="!vm.atualizando">         
+        <tr>
+            <th>cod_item</th>
+            <th>data</th>
+            <th>action</th>
+        </tr>
+        <tr ng-repeat ="Item in vm.listItem" > 
+            <td>{{Item.cod_item}}</td>
+            <td>{{Item.data}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="vm.deleteItem(Item)">Delete</button>
+                <button class="btn btn-primary" ng-click="vm.UpdateItem(Item)">Update</button>        
+            </td>
+        </tr>
+    </table>        
 </div>

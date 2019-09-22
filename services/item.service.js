@@ -9,47 +9,55 @@ db.bind('item');
 
 var service = {};
 service.createItem = createItem;
-
-//service.getlist = getlist;
+service.getallItem = getallItem;
 //service.getById = getById;
-//service.delete = deleteItem;
+service.delete = deleteItem;
 
 module.exports = service;
-/* function getlist(user)
+
+function getallItem(user)
 {
     var deferred = Q.defer();
     let query = {
         userid: user
     }
-    db.questions.find(query).toArray(function (err, doc)
+    db.item.find(query).toArray(function (err, doc)
     {
         if (err) deferred.reject(err.name + ': ' + err.message);
         deferred.resolve(doc);
     }
     )
     return deferred.promise;
-}
-*/ 
+} 
 
 
- function createItem(Item) 
-    {
-        var deferred = Q.defer();
-         db.item.insert(Item, function (err, doc) 
-         {
-                if (err)
-                     deferred.reject(err.name + ': ' + err.message);
-                deferred.resolve();
-         }
-         );
-         return deferred.promise;
+
+function createItem(Item) 
+{
+    var query = {
+        cod_item: Item.cod_item
     }
-
-
- /*function deleteQuestions(PerguntaID) {
     var deferred = Q.defer();
-    db.questions.remove(
-        { _id: mongo.helper.toObjectID(PerguntaID)
+    
+    db.item.findOneAndUpdate(
+        query,
+        Item, 
+        {upsert: true},
+        function (err, doc) 
+        {
+            if (err)
+                    deferred.reject(err.name + ': ' + err.message);
+            deferred.resolve();
+        }
+    );
+    return deferred.promise;
+}
+
+
+ function deleteItem(_id) {
+    var deferred = Q.defer();
+    db.item.remove(
+        { _id: mongo.helper.toObjectID(_id)
          },
         function (err) {
             if (err) deferred.reject(err.name + ': ' + err.message);
@@ -59,4 +67,4 @@ module.exports = service;
 
     return deferred.promise;
 }
-*/ 
+

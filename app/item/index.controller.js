@@ -5,23 +5,42 @@
         .module('app')
         .controller('item.IndexController', Controller);
 
-    function Controller($window, ItemService, FlashService) {
+    function Controller($window, ItemService, FlashService,UserService) {
         var vm = this;
-
+        
+        vm.user = null;
         vm.item= null;
         vm.saveItem = saveItem;
-        //vm.deleteItem = deleteItem;
+        vm.listItem = null;
+        vm.deleteItem = deleteItem;
+        vm.UpdateItem = UpdateItem;
+        vm.atualizando = false;
+        vm.Cancel = clear;
 
         initController();
 
         function initController()
          {
             // get current user
-           // UserService.GetCurrent().then(function (user) {
-            //    vm.user = user;
-            //});
+            UserService.GetCurrent().then(function (user) {
+                vm.user = user;
+                UpdatePage();
+            });
+          
         }
-     
+        function clear()
+        {
+            vm.item = {};
+            vm.atualizando = false;
+        }
+
+        function UpdatePage()
+        {
+            ItemService.GetAll(vm.user).then(function(item)
+            {
+                vm.listItem = item;
+            })
+        }
 
         function saveItem() {
             let item = {
@@ -34,29 +53,40 @@
                 cor: vm.item.cor, 
                 valor_etiqueta: vm.item.valor_etiqueta,
                 valor_compra: vm.item.valor_compra , 
-                valor_margem: vm.item.valor_compra, 
-                valor_sugerido: vm.item.valor_sugerido
+                valor_margem: vm.item.valor_compra*2, 
+                valor_sugerido: vm.item.valor_sugerido,
+                userid: vm.user._id
             };
+
+            vm.atualizando = false;
 
             ItemService.Create(item)
                 .then(function () {
                     FlashService.Success('Item Inserido');
+                    UpdatePage();
                 })
                 .catch(function (error) {
                     FlashService.Error(error);
                 });
         }
 
-        /*function deleteUser() {
-            UserService.Delete(vm.user._id)
+        function UpdateItem(item)
+        {
+            vm.atualizando = true;
+            vm.item = item;
+        }
+
+        function deleteItem(item) {
+            vm.atualizando = false;
+
+            ItemService.Delete(item._id)
                 .then(function () {
-                    // log user out
-                    $window.location = '/login';
+                    UpdatePage();
                 })
                 .catch(function (error) {
                     FlashService.Error(error);
                 });
-        }*/
+        }
     }
 
 })();

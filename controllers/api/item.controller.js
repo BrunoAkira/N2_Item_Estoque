@@ -1,19 +1,19 @@
 var config = require('config.json');
 var express = require('express');
 var router = express.Router();
-var itemService = require('services/item.service');
+var ItemService = require('services/item.service');
 
 // routes
 router.post('/create', createItem);
 //router.put('/update', updateItem);
-//router.delete('/:_id', deleteItem);
-//router.get('/', getallItem);
+router.delete('/:_id', deleteItem);
+router.get('/list/:userid', getallItem);
 //router.get('/:_id', getById);
 
 module.exports = router;
 
 function createItem(req, res) {
-    itemService.createItem(req.body)
+    ItemService.createItem(req.body)
         .then(function () {
             res.sendStatus(200);
         })
@@ -21,6 +21,25 @@ function createItem(req, res) {
             res.status(400).send(err);
         });
 }
+function getallItem(req, res) {
+    ItemService.getallItem(req.params.userid).then(function (item)
+     {
+                res.send(item);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+
+   }
+   function deleteItem(req, res) {
+    ItemService.delete(req.params._id).then(function ()
+     {
+         res.sendStatus(200);
+     })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+    }
 
 
 /* function updateItem(req, res) {
